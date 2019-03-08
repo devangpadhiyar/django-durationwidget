@@ -1,6 +1,4 @@
-========================
-Django Duration Widget
-========================
+#  Django Duration Widget
 
 Django duration widget is used for simplfiend Django model's `Duration` field.
 
