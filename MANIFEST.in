@@ -1,0 +1,3 @@
+include durationwidget/templates/widgets/*.html
+include README.rst
+include docs/*
