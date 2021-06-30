@@ -4,6 +4,10 @@ from gettext import ngettext
 from django.forms import MultiWidget
 from django.forms.widgets import Input
 from django.utils.dateparse import parse_duration
+from django.utils.translation import (
+    ugettext_lazy,
+    ngettext_lazy,
+)
 
 
 def get_time_factors(td):
@@ -25,13 +29,13 @@ def get_human_readable_duration(value):
     parsed_value = parse_duration(value)
     days, hours, minutes, seconds = get_time_factors(parsed_value)
     if days > 0:
-        format_list.append("{0} {1}".format(days, ngettext("Day", "Days", days)))
+        format_list.append("{0} {1}".format(days, ngettext_lazy("Day", "Days", days)))
     if hours > 0:
-        format_list.append("{0} {1}".format(hours, ngettext("Hour", "Hours", hours)))
+        format_list.append("{0} {1}".format(hours, ngettext_lazy("Hour", "Hours", hours)))
     if minutes > 0:
-        format_list.append("{0} {1}".format(minutes, ngettext("Minute", "Minutes", minutes)))
+        format_list.append("{0} {1}".format(minutes, ngettext_lazy("Minute", "Minutes", minutes)))
     if seconds > 0:
-        format_list.append("{0} {1}".format(seconds, ngettext("Second", "Seconds", seconds)))
+        format_list.append("{0} {1}".format(seconds, ngettext_lazy("Second", "Seconds", seconds)))
     return " ".join(format_list)
 
 
@@ -77,10 +81,10 @@ class TimeDurationWidget(MultiWidget):
         self.show_minutes = show_minutes
         self.show_seconds = show_seconds
         _widgets = []
-        _widgets.append(LabeledNumberInput(label="Days", type="days")) if show_days else None,  # Day
-        _widgets.append(LabeledNumberInput(label="Hours", type="hours")) if show_hours else None,  # Hour
-        _widgets.append(LabeledNumberInput(label="Minutes", type="minutes")) if show_minutes else None,  # Minute
-        _widgets.append(LabeledNumberInput(label="Seconds", type="seconds")) if show_seconds else None,  # Seconds
+        _widgets.append(LabeledNumberInput(label=ugettext_lazy("Days"), type="days")) if show_days else None,  # Day
+        _widgets.append(LabeledNumberInput(label=ugettext_lazy("Hours"), type="hours")) if show_hours else None,  # Hour
+        _widgets.append(LabeledNumberInput(label=ugettext_lazy("Minutes"), type="minutes")) if show_minutes else None,  # Minute
+        _widgets.append(LabeledNumberInput(label=ugettext_lazy("Seconds"), type="seconds")) if show_seconds else None,  # Seconds
         super().__init__(_widgets, attrs)
 
     # ---------------------------------------------------------------------------------------------------------------------
