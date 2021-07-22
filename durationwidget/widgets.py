@@ -1,7 +1,7 @@
 from datetime import timedelta
 from gettext import ngettext
 
-from apt.progress.text import _
+from django.utils.translation import gettext_lazy as _
 from django.forms import MultiWidget
 from django.forms.widgets import Input
 from django.utils.dateparse import parse_duration
