@@ -1,6 +1,7 @@
 from datetime import timedelta
 from gettext import ngettext
 
+from django.utils.translation import gettext_lazy as _
 from django.forms import MultiWidget
 from django.forms.widgets import Input
 from django.utils.dateparse import parse_duration
@@ -71,16 +72,18 @@ class TimeDurationWidget(MultiWidget):
         return context
 
     # ---------------------------------------------------------------------------------------------------------------------
-    def __init__(self, attrs=None, show_days=True, show_hours=True, show_minutes=True, show_seconds=True):
+    def __init__(self, attrs=None, show_days=True, show_hours=True, show_minutes=True, show_seconds=True,
+                 label_days=_("Days"), label_hours=_("Hours"),
+                 label_minutes=_("Minutes"), label_seconds=_("Seconds")):
         self.show_days = show_days
         self.show_hours = show_hours
         self.show_minutes = show_minutes
         self.show_seconds = show_seconds
         _widgets = []
-        _widgets.append(LabeledNumberInput(label="Days", type="days")) if show_days else None,  # Day
-        _widgets.append(LabeledNumberInput(label="Hours", type="hours")) if show_hours else None,  # Hour
-        _widgets.append(LabeledNumberInput(label="Minutes", type="minutes")) if show_minutes else None,  # Minute
-        _widgets.append(LabeledNumberInput(label="Seconds", type="seconds")) if show_seconds else None,  # Seconds
+        _widgets.append(LabeledNumberInput(label=label_days, type="days")) if show_days else None,  # Day
+        _widgets.append(LabeledNumberInput(label=label_hours, type="hours")) if show_hours else None,  # Hour
+        _widgets.append(LabeledNumberInput(label=label_minutes, type="minutes")) if show_minutes else None,  # Minute
+        _widgets.append(LabeledNumberInput(label=label_seconds, type="seconds")) if show_seconds else None,  # Seconds
         super().__init__(_widgets, attrs)
 
     # ---------------------------------------------------------------------------------------------------------------------
